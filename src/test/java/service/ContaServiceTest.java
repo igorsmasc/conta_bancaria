@@ -1,7 +1,10 @@
 package service;
 
 import model.Conta;
+import static org.hamcrest.CoreMatchers.*;
 import org.junit.*;
+
+import static org.junit.Assert.*;
 
 import java.util.Scanner;
 
@@ -51,11 +54,16 @@ public class ContaServiceTest {
 
         // Quando:
         Conta conta = contaService.cadastrar("Beatriz");
+        Conta conta2 = contaService.cadastrar("Pedro");
 
         // Entao:
-        Assert.assertTrue(1 == conta.getAgencia());
-        Assert.assertTrue(1 == conta.getNumero());
-        Assert.assertEquals("Beatriz", conta.getNomeDoCliente());
+        assertTrue(1 == conta.getAgencia());
+        assertTrue(1 == conta.getNumero());
+        assertEquals("Beatriz", conta.getNomeDoCliente());
+
+        assertTrue(2 == conta2.getAgencia());
+        assertTrue(2 == conta2.getNumero());
+        assertEquals("Pedro", conta2.getNomeDoCliente());
     }
 
     @Test
@@ -81,38 +89,38 @@ public class ContaServiceTest {
         Assert.assertTrue(conta.getSaldo() == 10.0);
     }
 
+    @Ignore
     @Test
-
     public void assertsPossiveis() {
-        Assert.assertTrue(true);
-        Assert.assertFalse(false);
+        assertTrue(true);
+        assertFalse(false);
 
         // Numeros inteiros
-        Assert.assertEquals(1, 1);
-        Assert.assertEquals(100000, 100000);
+       assertEquals(1, 1);
+       assertEquals(100000, 100000);
 
         // Numeros ponto flutuante
-        Assert.assertEquals(0.5, 0.5, 0.1);
-        Assert.assertEquals(0.51, 0.52, 0.1);
+        assertEquals(0.5, 0.5, 0.1);
+        assertEquals(0.51, 0.52, 0.1);
         // Assert.assertEquals(0.51, 0.52, 0.01);
 
         // Dizimas periodicas infinitas
-        Assert.assertEquals(3.141599999999, Math.PI, 0.001);
+        assertEquals(3.141599999999, Math.PI, 0.001);
 
         // primitivos -> int, short, long, fload, double...
         // wrapper classes -> Integer, Short, Long, Float, Double...
         int intPrimitivo = 10;
         Integer integerWrapper = 10;
 
-        Assert.assertEquals(Integer.valueOf(intPrimitivo), integerWrapper);
-        Assert.assertEquals((Integer) intPrimitivo, integerWrapper);
-        Assert.assertEquals(intPrimitivo, integerWrapper.intValue());
+        assertEquals(Integer.valueOf(intPrimitivo), integerWrapper);
+        assertEquals((Integer) intPrimitivo, integerWrapper);
+        assertEquals(intPrimitivo, integerWrapper.intValue());
 
-        Assert.assertEquals("jose", "jose");
+        assertEquals("jose", "jose");
 
-        Assert.assertTrue("Maria".equalsIgnoreCase("maria"));
+        assertTrue("Maria".equalsIgnoreCase("maria"));
 
-        Assert.assertNotEquals(2 , 10);
+        assertNotEquals(2 , 10);
 
         Conta conta01 = new Conta(1, 1, "Marcos");
         Conta conta02 = new Conta(1, 1, "Marcos");
@@ -121,14 +129,35 @@ public class ContaServiceTest {
         // Conta - equals()
 
         // Considera o método equals
-        Assert.assertEquals(conta01, conta02);
+        assertEquals(conta01, conta02);
 
         // Valida que é a mesma instancia
-        Assert.assertSame(conta01, conta01);
-        Assert.assertNotSame(conta01, conta02);
+        assertSame(conta01, conta01);
+        assertNotSame(conta01, conta02);
 
         // Expected - esperado | Actual - atual
 
-        Assert.assertEquals("Mensagem de erro do igor", 2, 2);
+        assertEquals("Mensagem de erro do igor", 2, 2);
     }
+
+    @Test
+    public void assertThatTest() {
+        // verifique que...
+        Conta contaDaMaria = contaService.cadastrar("Maria");
+
+        // Mais legibilidade
+        assertThat(contaDaMaria.getSaldo(), is(0.0)); // assertThat -> Junt 4
+
+        assertEquals((Double) 0.0, contaDaMaria.getSaldo());
+
+        assertThat(contaDaMaria.getSaldo(), is(0.0));
+        assertThat(contaDaMaria.getNomeDoCliente(), is(not("João")));
+        assertThat(contaDaMaria, is(instanceOf(Conta.class)));
+        // assertThrows()
+        // a
+        //
+        // ssertThrows()
+    }
+
+
 }
