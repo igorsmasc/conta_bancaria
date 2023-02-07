@@ -18,11 +18,7 @@ public class ContaService {
         conta.setSaldo(conta.getSaldo() + valor);
     }
 
-    public void sacar(Conta conta, Double valor) throws Exception {
-        if(valor < 0) {
-            throw new Exception("O valor do saque não pode ser negativo");
-        }
-
+    public void sacar(Conta conta, Double valor) {
         if(conta.getSaldo() >= valor) {
             conta.setSaldo(conta.getSaldo() - valor);
         } else {

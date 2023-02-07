@@ -1,5 +1,3 @@
-import static tools.Calculadora.somar;
-
 public class Main {
 
     /**
@@ -28,14 +26,5 @@ public class Main {
          *
          */
 
-
-        somar(1, 1);
-        somar(1, 1);
-        somar(1, 1);
-        somar(1, 1);
-        somar(1, 1);
-        somar(1, 1);
-        somar(1, 1);
-        somar(1, 1);
     }
 }
